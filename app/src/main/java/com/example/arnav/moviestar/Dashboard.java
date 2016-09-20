@@ -1,15 +1,10 @@
 package com.example.arnav.moviestar;
 
 import android.content.DialogInterface;
-import android.graphics.Path;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
-
-import java.util.ArrayList;
 
 public class Dashboard extends AppCompatActivity {
 
