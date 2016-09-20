@@ -1,5 +1,7 @@
 package com.example.arnav.moviestar;
 
+import java.util.Objects;
+
 /**
  * Created by Arnav on 14/09/2016.
  */
@@ -47,5 +49,14 @@ public class DatasetMovies {
 
     public void setmVoteRating(String mVoteRating) {
         this.mVoteRating = mVoteRating;
+    }
+
+    public String[] getHeadingSet(){
+        String[] headings = new String[2];
+        headings[0] = getmMovieTitle();
+        headings[1] = getmPopularity();
+        headings[2] = getmVoteRating();
+
+        return headings;
     }
 }

@@ -9,9 +9,9 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.arnav.moviestar.Dashboard">
 
-    <ListView
-        android:id="@+id/listview_movies"
+    <ExpandableListView
+        android:id="@+id/expandable_list_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>

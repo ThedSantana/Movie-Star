@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_grey">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Overview:"
+        android:id="@+id/labelOverviewItem" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="&lt;Overview>"
+        android:id="@+id/textViewOverviewChildItem"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/labelPopularityItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Popularity: "
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/textViewPopularityItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="&lt;Popularity>"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/labelVoteRatingItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vote Rating: "
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/textViewVoteRatingItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="&lt;Vote Rating>"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_marginBottom="8dp"/>
+</LinearLayout>

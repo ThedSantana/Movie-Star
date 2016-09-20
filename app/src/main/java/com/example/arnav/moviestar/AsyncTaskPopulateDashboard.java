@@ -7,7 +7,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.ContactsContract;
 import android.util.Log;
-import android.widget.ArrayAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -22,6 +22,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Arnav on 14/09/2016.
@@ -43,14 +45,17 @@ public class AsyncTaskPopulateDashboard extends AsyncTask<Void, DatasetMovies, V
 
     String movieJson;
 
-    CustomListViewAdapter customListViewAdapter;
-    ListView listViewMovies;
+    CustomExpandableListViewAdapter customExpandableListViewAdapter;
+    ExpandableListView expandableListView;
 
-    AsyncTaskPopulateDashboard(Context context, CustomListViewAdapter customListViewAdapter, ListView listView){
+    List<String> headings = new ArrayList<>();
+    HashMap<String, List<String>> hashMapChildren = new HashMap<>();
+
+
+    AsyncTaskPopulateDashboard(Context context, ExpandableListView expandableListView){
         this.contextPopulateDashboard = context;
         this.activityPopulateDashboard = (Activity)context;
-        this.customListViewAdapter = customListViewAdapter;
-        this.listViewMovies = listView;
+        this.expandableListView = expandableListView;
         LOG_TAG = Dashboard.class.getSimpleName();
     }
 
@@ -62,9 +67,6 @@ public class AsyncTaskPopulateDashboard extends AsyncTask<Void, DatasetMovies, V
         progressDialogPopulateDashboard.setMessage("Populating...");
         progressDialogPopulateDashboard.setIndeterminate(false);
         progressDialogPopulateDashboard.show();
-
-        customListViewAdapter = new CustomListViewAdapter(contextPopulateDashboard, R.layout.list_view_item);
-        listViewMovies.setAdapter(customListViewAdapter);
     }
 
     @Override
@@ -113,13 +115,26 @@ public class AsyncTaskPopulateDashboard extends AsyncTask<Void, DatasetMovies, V
                 String jsonVoteRating = jsonObject.getString("vote_average");
 
                 DatasetMovies datasetMovies = new DatasetMovies(jsonMovieTitle, jsonOverview, jsonPopularity, jsonVoteRating);
-                publishProgress(datasetMovies);
+                prepareListData(datasetMovies, i);
+                publishProgress();
+
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private void prepareListData(DatasetMovies datasetMovies, int count) {
+
+        headings.add(datasetMovies.getmMovieTitle());
+        List<String> details = new ArrayList<String>();
+        details.add(datasetMovies.getmOverview());
+        details.add(datasetMovies.getmPopularity());
+        details.add(datasetMovies.getmVoteRating());
+
+        hashMapChildren.put(headings.get(count), details);
     }
 
     @Override
@@ -130,7 +145,7 @@ public class AsyncTaskPopulateDashboard extends AsyncTask<Void, DatasetMovies, V
 
     @Override
     protected void onProgressUpdate(DatasetMovies... datasetMovies) {
-        customListViewAdapter.add(datasetMovies[0]);
-        customListViewAdapter.notifyDataSetChanged();
+        customExpandableListViewAdapter = new CustomExpandableListViewAdapter(contextPopulateDashboard, headings, hashMapChildren);
+        expandableListView.setAdapter(customExpandableListViewAdapter);
     }
 }
