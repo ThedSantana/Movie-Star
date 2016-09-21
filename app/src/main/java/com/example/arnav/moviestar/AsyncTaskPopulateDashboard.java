@@ -35,8 +35,9 @@ public class AsyncTaskPopulateDashboard extends AsyncTask<Void, DatasetMovies, V
     Activity activityPopulateDashboard;
     ProgressDialog progressDialogPopulateDashboard;
 
+    String movieCategoryType;
     final String MOVIE_DB_BASE_URL = "http://api.themoviedb.org/3/movie/";
-    final String MOVIE_DB_TYPE = "popular?";
+    String MOVIE_DB_TYPE = "popular?";
     final String API_KEY_PARAM = "api_key";
 
     URL url = null;
@@ -52,10 +53,11 @@ public class AsyncTaskPopulateDashboard extends AsyncTask<Void, DatasetMovies, V
     HashMap<String, List<String>> hashMapChildren = new HashMap<>();
 
 
-    AsyncTaskPopulateDashboard(Context context, ExpandableListView expandableListView){
+    AsyncTaskPopulateDashboard(Context context, ExpandableListView expandableListView, String movieCategoryType){
         this.contextPopulateDashboard = context;
         this.activityPopulateDashboard = (Activity)context;
         this.expandableListView = expandableListView;
+        this.movieCategoryType = movieCategoryType;
         LOG_TAG = Dashboard.class.getSimpleName();
     }
 
@@ -67,6 +69,20 @@ public class AsyncTaskPopulateDashboard extends AsyncTask<Void, DatasetMovies, V
         progressDialogPopulateDashboard.setMessage("Populating...");
         progressDialogPopulateDashboard.setIndeterminate(false);
         progressDialogPopulateDashboard.show();
+
+        switch (movieCategoryType){
+            case "Popular Movies":
+                MOVIE_DB_TYPE = "popular?";
+                break;
+            case "Top Rated Movies":
+                MOVIE_DB_TYPE = "top_rated?";
+                break;
+            case "Upcoming Movies":
+                MOVIE_DB_TYPE = "upcoming?";
+                break;
+            default:
+                MOVIE_DB_TYPE = "popular?";
+        }
     }
 
     @Override
