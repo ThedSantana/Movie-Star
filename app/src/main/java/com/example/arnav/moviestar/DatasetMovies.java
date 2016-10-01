@@ -1,5 +1,7 @@
 package com.example.arnav.moviestar;
 
+import android.graphics.Bitmap;
+
 import java.util.Objects;
 
 /**
@@ -8,12 +10,14 @@ import java.util.Objects;
 public class DatasetMovies {
 
     private String mMovieTitle;
+    private String mMoviePoster;
     private String mOverview;
     private String mPopularity;
     private String mVoteRating;
 
-    public DatasetMovies(String movieTitle, String overview, String popularity, String rating){
+    public DatasetMovies(String movieTitle, String moviePoster, String overview, String popularity, String rating){
         this.mMovieTitle = movieTitle;
+        this.mMoviePoster = moviePoster;
         this.mOverview = overview;
         this.mPopularity = popularity;
         this.mVoteRating = rating;
@@ -25,6 +29,14 @@ public class DatasetMovies {
 
     public void setmMovieTitle(String mMovieTitle) {
         this.mMovieTitle = mMovieTitle;
+    }
+
+    public String getmMoviePoster() {
+        return mMoviePoster;
+    }
+
+    public void setmMoviePoster(String mMoviePoster) {
+        this.mMoviePoster = mMoviePoster;
     }
 
     public String getmOverview() {

@@ -3,12 +3,15 @@ package com.example.arnav.moviestar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,6 +42,7 @@ public class AsyncTaskPopulateDashboard extends AsyncTask<Void, DatasetMovies, V
     final String MOVIE_DB_BASE_URL = "http://api.themoviedb.org/3/movie/";
     String MOVIE_DB_TYPE = "popular?";
     final String API_KEY_PARAM = "api_key";
+    final String IMAGE_URL = "http://image.tmdb.org/t/p/w500";
 
     URL url = null;
     HttpURLConnection httpURLConnection = null;
@@ -129,8 +133,10 @@ public class AsyncTaskPopulateDashboard extends AsyncTask<Void, DatasetMovies, V
                 String jsonOverview = jsonObject.getString("overview");
                 String jsonPopularity = jsonObject.getString("popularity");
                 String jsonVoteRating = jsonObject.getString("vote_average");
+                String jsonMoviePoster = jsonObject.getString("poster_path");
+                String imageUri = IMAGE_URL + jsonMoviePoster;
 
-                DatasetMovies datasetMovies = new DatasetMovies(jsonMovieTitle, jsonOverview, jsonPopularity, jsonVoteRating);
+                DatasetMovies datasetMovies = new DatasetMovies(jsonMovieTitle, imageUri, jsonOverview, jsonPopularity, jsonVoteRating);
                 prepareListData(datasetMovies, i);
                 publishProgress();
 
@@ -145,6 +151,7 @@ public class AsyncTaskPopulateDashboard extends AsyncTask<Void, DatasetMovies, V
     private void prepareListData(DatasetMovies datasetMovies, int count) {
 
         headings.add(datasetMovies.getmMovieTitle());
+        headings.add(datasetMovies.getmMoviePoster());
         List<String> details = new ArrayList<String>();
         details.add(datasetMovies.getmOverview());
         details.add(datasetMovies.getmPopularity());
